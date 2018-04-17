@@ -1,0 +1,34 @@
+.form-order {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: 13px;
+    /*border: 1px solid yellow;*/
+}
+
+.form-order label{
+    margin-bottom: 0;
+}
+
+.form-order-bottons {
+    float: right;
+    margin-top: 65px;
+}
+
+
+
+/* common */
+.column-info{
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.form-botton {
+    float: right;
+    margin-left: 15px;
+}
+
+/* end common */
+
+
+

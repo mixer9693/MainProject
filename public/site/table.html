@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--  Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- shell -->
+    <link rel="stylesheet" href="./css/shell.css" type="text/css"/>
+    <!-- table.order -->
+    <link rel="stylesheet" href="./css/order.css" type="text/css"/>
+
+
+    <!--  JQuery -->
+    <script src="../javascripts/jq/jquery-3.3.1.js" ></script>
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+
+    <script>
+        console.log('TABLE.HTML')
+
+        $(document).ready(function () {
+            auth.init()
+
+            socket.init();
+
+            table.init($('#movemetOrderTable'));
+
+        })
+    </script>
+
+
+</head>
+<body>
+    <div class="container">
+        <ul class="menu" id="myTab"> <!-- nav nav-tabs-->
+            <li><a href="table.html" class="active">Таблица</a></li>
+            <li><a href="order.html">Создать заказ</a></li>
+            <li><a class="inaccessible">Редактирование</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <table id="movemetOrderTable" class="table-striped table-hover"> <!-- basic markdown display dataTable no-footer -->
+            <thead>
+            <tr>
+                <th>№</th>
+                <!--<th>Заказ №</th>-->
+                <th>Откуда</th>
+                <th>Куда</th>
+                <th>Когда</th>
+                <th>Телефон</th>
+                <th>Статус</th>
+
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <div id="notice-container" class="notice-container"><!-- для сообщений --></div>
+
+
+    <!--  Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- auth -->
+    <script src="js/auth.js"></script>
+    <!-- socket -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/socket.js"></script>
+    <!-- table -->
+    <script src="js/table.js"></script>
+
+</body>
+</html>

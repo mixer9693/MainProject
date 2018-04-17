@@ -1,0 +1,25 @@
+
+.spa-auth{
+    position : absolute;
+    margin: 10px;
+    overflow : visible;
+    min-height : calc(100vh - 20px);
+    width: calc(100vw - 25px);
+    background-color : #fff;
+    /*border: 1px solid black;*/
+    text-align: center;
+    vert-align: middle;
+}
+
+.spa-auth-form {
+    display: inline-block;
+    margin-top : 100px;
+    background : #fff;
+    border-radius : 3px;
+    z-index: 2;
+    text-align: left;
+}
+#spa-auth-form{
+    width: 80%;
+    margin: 15px auto 20px auto;
+}

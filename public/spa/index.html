@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>SPA Starter</title>
+
+    <!--  JQuery -->
+    <script src="../javascripts/jq/jquery-3.3.1.js" ></script>
+
+    <!--<link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>-->
+
+
+    <!--  Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+
+
+    <!-- auth -->
+    <link rel="stylesheet" href="./css/spa.auth.css" type="text/css"/>
+
+    <!-- shell -->
+    <link rel="stylesheet" href="./css/spa.css" type="text/css"/>
+
+    <!-- table.order -->
+    <link rel="stylesheet" href="./css/spa.table.order.css" type="text/css"/>
+
+    <!-- table.edit -->
+    <link rel="stylesheet" href="./css/spa.table.edit.css" type="text/css"/>
+
+    <!--<link rel="stylesheet" href="css/order.css" type="text/css"/>-->
+
+
+    <script src="../socket.io/socket.io.js"></script>
+
+
+    <!-- main -->
+    <script src="./js/spa.js"></script>
+
+    <!-- auth -->
+    <script src="./js/spa.auth.js"></script>
+
+    <!-- socket -->
+    <script src="./js/spa.socket.js"></script>
+
+    <!-- table -->
+    <script src="./js/spa.table.js"></script>
+
+    <!-- table order -->
+    <script src="./js/spa.table.order.js"></script>
+
+
+    <script src="./js/spa.table.performer.js"></script>
+
+    <script src="./js/spa.table.edit_page.js"></script>
+
+
+    <script>
+
+        $(document).ready(function() {
+            alert('SPA')
+            spa.init($('#spa'))
+        });
+
+    </script>
+
+</head>
+<body>
+    <div id="container">
+        <div id="spa"></div>
+    </div>
+
+
+    <!--<script type="text/javascript" src="js/bootstrap.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <!--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>-->
+
+</body>
+</html>

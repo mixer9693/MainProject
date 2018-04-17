@@ -1,0 +1,51 @@
+
+<div id="spa-table-edit" data-mov_id>
+    <div class="container">
+        <div id="mov-info" class="row">
+        <div class="col-lg-2 column-info">
+            <h6>
+                <label class="control-label" for="mov-id">#</label>
+                <span id="mov-id" class="badge badge-info"></span>
+            </h6>
+        </div>
+        <div class="col-lg-2 column-info">
+            <h6>
+                <label class="control-label" for="order-id">Заказ №</label>
+                <span id="order-id" class="badge badge-info"></span>
+            </h6>
+        </div>
+        <div class="col-lg-2 column-info">
+            <h6>
+                <label class="control-label" for="status">Статус: </label>
+                <span id="status" class="badge badge-success"></span>
+            </h6>
+        </div>
+        <div class="col-lg-3 column-info">
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="change-status">Изменить статус </span>
+                </div>
+                <select id='select-status' name="status" class="form-control" aria-describedby="change-status">
+                    <option selected></option>
+                    <option value=" новый">новый</option>
+                    <option value="выполнен">выполнен</option>
+                    <option value="завершен">завершен</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="column-info">
+                <button id="btn-change-status" type="button" class="invisible btn btn-sm btn-primary form-botton">Сохранить</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <hr>
+        <div id="edit-order"></div>
+    <hr>
+
+    <div id="performer"></div>
+</div>
+
+

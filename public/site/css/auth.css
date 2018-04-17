@@ -1,0 +1,27 @@
+
+
+.auth-form {
+    width: 80%;
+    margin: 15px auto 20px auto;
+}
+
+.auth-form-container {
+    margin-top: 100px;
+    align-content: center;
+    padding: 20px 15px 20px 15px;
+}
+
+.auth-form-container h3{
+    text-align: center;
+}
+
+.auth-form-container input[type=submit]{
+    margin-top: 50px;
+}
+
+.alert{
+    padding: 8px !important;
+    text-align: center;
+    font-size: 1rem !important;
+    display: none;
+}

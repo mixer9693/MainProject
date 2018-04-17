@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--  Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- shell -->
+    <link rel="stylesheet" href="./css/shell.css" type="text/css"/>
+    <!-- table.order -->
+    <link rel="stylesheet" href="./css/order.css" type="text/css"/>
+    <!-- table.edit -->
+    <link rel="stylesheet" href="./css/edit.css" type="text/css"/>
+
+    <!--  JQuery -->
+    <script src="../javascripts/jq/jquery-3.3.1.js" ></script>
+
+    <script>
+        console.log('EDIT.HTML')
+        $(document).ready(function () {
+            auth.init()
+
+            var params = parseURL();
+            var mov = null
+
+            var url = '/api/movement-orders/'+params['mov_id']+'?with=order'
+
+            $.get(url).done(function (data) {
+                mov = data[0]
+
+                initMov()
+                setMovementInfo(mov)
+
+                initOrder()
+                order.setData($('#spa-table-order-form'), mov.order)
+
+                performer.init($('#performer')).show(mov.performer_id)
+                initPerform()
+
+
+            }).fail(function (err) {
+                throw Error(err)
+            })
+
+            message.init($('#mes'))
+
+        })
+
+        function parseURL() {
+            var params = window
+                .location
+                .search
+                .replace('?','')
+                .split('&')
+                .reduce(
+                    function(p,e){
+                        var a = e.split('=');
+                        p[ decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                        return p;
+                    },
+                    {}
+                );
+
+            return params
+        }
+
+        function setMovementInfo(mov) {
+            $('#spa-table-edit').attr('data-mov_id', mov.id);
+            $('#mov-id').html(mov.id);
+            $('#order-id').text(mov.order_id);
+            $('#status').html(mov.status);
+        }
+
+        function initMov() {
+           $('#select-status').change(function () {
+                $('#btn-change-status').removeClass('invisible');
+            });
+
+            $('#btn-change-status').on('click', function () {
+                $('#btn-change-status').attr('disabled', '');
+
+                var completed = $('#select-status').val();
+                var movId = $('#spa-table-edit').attr('data-mov_id');
+                var data = {id: movId, completed: completed};
+                $.post('/api/movement-orders/'+movId, data).done(function (res) {
+                    // $('#status').text(res.status);
+                    $('#btn-change-status').attr('disabled', null)
+                        .addClass('invisible');
+
+                    var mes = 'Заказ <b>№'+res.order_id+'</b> закрыт'
+                    message.showMessage(null, mes, message.TYPE.SUCCESS)
+
+                }).fail(function (err) {
+                    console.log('/api/movement-order/for-manager/ fail');
+
+                    $('#btn-change-status').attr('disabled', null);
+
+                    var head = 'Не удалось изменить состояние заказа '
+                    var mes = 'Ошибка: '+err.status;
+                    message.showMessage(head, mes, message.TYPE.DANGER)
+
+                });
+            });
+
+
+        }
+
+        function initOrder() {
+
+            $('#date').attr('min', order.getDate())
+
+            $('#spa-table-order-form').change(function () {
+                $('#btn-save').removeClass('invisible');
+            });
+
+            $('#spa-table-order-form').submit(function () {
+                $('#btn-save').attr('disabled', '');
+
+                var data = order.serialize($(this))
+
+
+                order.updateOrder(data).then(function (res) {
+                    $('#btn-save').attr('disabled', null).addClass('invisible');
+
+                    var mes = 'Заказ № <b>'+res.order_id+'</b> обновлен'
+                    message.showMessage(null, mes, message.TYPE.SUCCESS)
+
+
+                }).catch(function (err) {
+                    $('#btn-save').attr('disabled', null)
+
+                    var head= 'Не удалось обновить заказ'
+                    var mes =  'error: '+err.status;
+                    message.showMessage(head, mes, message.TYPE.DANGER)
+
+                    throw Error(err)
+                })
+            })
+        }
+
+        function initPerform() {
+
+            performer.addSetPerformerClickListener(function (Performer) {
+                var movId = $('#spa-table-edit').attr('data-mov_id');
+                performer.setPerformer(movId, Performer.id).then(function (res) {
+                    performer.show(res.performer_id)
+
+                    var mes = 'Водитель <b>#'+res.performer_id+'</b> назначен на заказ <b>№'
+                        +res.order_id+'</b>'
+                    message.showMessage(null, mes, message.TYPE.SUCCESS)
+                })
+            })
+
+            performer.addRemovePerformerClickListener(function (Performer) {
+                var movId = $('#spa-table-edit').attr('data-mov_id');
+
+                if (confirm('Водитель будет снят с заказа')) {
+                    performer.setPerformer(movId, 0).then(function (res) {
+                        performer.show(res.performer_id)
+
+                        var mes = 'Водитель снят с заказа <b>№'+res.order_id+'</b>'
+                        message.showMessage(null, mes, message.TYPE.DANGER)
+                    })
+                }
+            })
+        }
+
+    </script>
+
+
+</head>
+<body>
+    <div class="container">
+        <ul class="menu" id="myTab"> <!-- nav nav-tabs-->
+            <li><a href="table.html" >Таблица</a></li>
+            <li><a href="order.html" >Создать заказ</a></li>
+            <li><a href="#" class="active">Редактирование</a></li>
+        </ul>
+    </div>
+
+    <div id="spa-table-edit" data-mov_id>
+        <div class="container">
+            <div id="mov-info" class="row">
+                <div class="col-lg-2 column-info">
+                    <h6>
+                        <label class="control-label" for="mov-id">#</label>
+                        <span id="mov-id" class="badge badge-info"></span>
+                    </h6>
+                </div>
+                <div class="col-lg-2 column-info">
+                    <h6>
+                        <label class="control-label" for="order-id">Заказ №</label>
+                        <span id="order-id" class="badge badge-info"></span>
+                    </h6>
+                </div>
+                <div class="col-lg-2 column-info">
+                    <h6>
+                        <label class="control-label" for="status">Статус: </label>
+                        <span id="status" class="badge badge-success"></span>
+                    </h6>
+                </div>
+                <div class="col-lg-3 column-info">
+                    <div class="input-group input-group-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="change-status">Состояние </span>
+                        </div>
+                        <select id='select-status' name="status" class="form-control" aria-describedby="change-status">
+                            <option value="0" selected>открыт</option>
+                            <option value="1">закрыт</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="column-info">
+                        <button id="btn-change-status" type="button" class="invisible btn btn-sm btn-primary form-botton">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div id="edit-order">
+            <div class="container">
+                <form id="spa-table-order-form" class="form-order " method="post" onsubmit="return false" data-order_id autocomplete="off">
+                    <div class="row">
+                        <div class="col-lg-7 column-info">
+                            <div class="input-group-sm">
+                                <label for="from">Откуда *</label>
+                                <input id="from" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 column-info">
+                            <label for="date">Когда</label>
+                            <div  class="input-group-sm">
+                                <input id="date" type="date" class="form-control" >
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 column-info">
+                            <label for="time">Время</label>
+                            <div class="input-group-sm">
+                                <input id="time" type="time" class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-7 column-info">
+                            <div class="input-group-sm">
+                                <label for="to" class="">Куда *</label>
+                                <input id="to" type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 column-info">
+                            <div class="input-group-sm">
+                                <label for="phone" class="">Телефон *</label>
+                                <input id="phone" type="tel" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 column-info">
+                            <label for="lease_term">На сколько *</label>
+                            <div class="input-group input-group-sm">
+                                <select class="form-control" id="lease_term" aria-describedby="leas_term-icon">
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="leas_term-icon">час</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-7 column-info">
+                            <div class="input-group-sm">
+                                <label for="description" class="">Описание</label>
+                                <textarea id="description" class="form-control" rows="3" style="resize: none"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 column-info">
+                            <label for="value" class="">Услуга будет стоить *</label>
+                            <div class="input-group input-group-sm">
+                                <input id="value" type="number" min="0" class="form-control" aria-describedby="rub">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="rub">руб</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="btn-group" class="col-lg-3 column-info">
+                            <button id="btn-save" type="submit" class="btn btn-sm btn-primary form-order-bottons form-botton invisible">Сохранить</button>
+                            <!--<button id="btn-reset" type="reset" class=" btn btn-sm btn-secondary form-order-bottons form-botton">Сбросить</button>-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+
+        <div id="performer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-8 column-info">
+                                <h6>
+                                    <label class="control-label" for="mov-id">Исполнитель: #</label>
+                                    <span id="performer-id" class="badge "><!--не назначен--></span>  <!-- badge-warning -->
+                                </h6>
+                            </div>
+
+                            <div class="col-lg-4 column-info">
+                                <div id="buttons" class="invisible">
+                                    <button id="remove-performer" type="button" class=" btn btn-sm btn-secondary form-botton" >Снять</button>
+                                    <button id="set-performer" type="button" class=" btn btn-sm btn-primary form-botton" >Назначить</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="performer-info" class="invisible border" >
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                            <ul class="list-unstyled">
+                                                <li><strong>Водитель </strong><span></span>
+                                                    <ul>
+                                                        <li>Имя:
+                                                            <span id="performer-name">Валентин</span>
+                                                        </li>
+                                                        <li>Фамилия:
+                                                            <span id="performer-surname">Титов</span>
+                                                        </li>
+                                                        <li>Телефон:
+                                                            <span id="performer-phone">8 800 888 88 88</span>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><strong>Автомобиль</strong>
+                                                    <ul>
+                                                        <li>Тип:
+                                                            <span id="car-type">В4</span>
+                                                        </li>
+                                                        <li>Грузоподъемность:
+                                                            <span id="car-carrying_capacity">1,5</span>
+                                                        </li>
+                                                        <li>Марка:
+                                                            <span id="car-mark">Газель</span>
+                                                        </li>
+                                                        <li>Номер:
+                                                            <span id="car-state_number">А777МР</span>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <h6 class="column-info">
+                                                        <span id="at-work" class="badge ">на работе</span> <!-- badge-info -->
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <h6>
+                                                        <span id="free" class="badge ">свободен</span> <!-- badge-success -->
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-10 offset-2 column-info select-performer">
+                                <div id="performers-list" class="invisible">
+                                    <label for="performers-list">Список свободных водителей</label>
+                                    <div class="border"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mes"></div>
+
+
+
+    <!--  Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- auth -->
+    <script src="js/auth.js"></script>
+    <!-- performer -->
+    <script src="js/performer.js"></script>
+    <!-- table order -->
+    <script src="js/order.js"></script>
+    <!-- message -->
+    <script src="js/message.js"></script>
+
+</body>
+</html>

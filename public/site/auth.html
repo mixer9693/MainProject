@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>SPA Starter</title>
+
+    <!--  Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- auth -->
+    <link rel="stylesheet" href="css/auth.css" type="text/css"/>
+
+
+    <!--  JQuery -->
+    <script src="../javascripts/jq/jquery-3.3.1.js" ></script>
+
+    <script>
+        console.log('AUTH.HTML')
+        $(document).ready(function() {
+
+            $('#spa-auth-form').submit(function () {
+                if (!auth.validate($(this))) return;
+
+                var data = auth.serialize($(this))
+                auth.showError($(this), null)
+                auth.authenticate(data).then(function (JWT) {
+                    auth.setSession(JWT)
+                    console.log(JWT)
+                    location.href = '/site/table.html'
+
+                }).catch(function (err) {
+                    console.log(err.status)
+                    var mess;
+                    switch (err.status){
+                        case 401 : mess = 'Неверный логин или пароль';
+                           break
+                        default: mess = 'Запрос завершился с ошибкой '+err.status
+                    }
+                    auth.showError($('#spa-auth-form'), mess);
+
+                })
+            })
+        })
+
+
+    </script>
+
+</head>
+<body>
+
+<link rel="stylesheet" href="../spa/css/bootstrap.css" type="text/css"/>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 offset-4 border auth-form-container">
+                        <h3 >Вход в систему</h3>
+
+                        <form id="spa-auth-form" class="auth-form" method="post" onsubmit="return false;">
+                            <div id="form-message" class="alert alert-danger"  role="alert">
+                                Неверный логин или пароль
+                            </div>
+
+                            <div class="form-group">
+                                <label>Логин</label>
+                                <input type="text" name="login" class="form-control ">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Пароль</label>
+                                <input type="password" name="password" class="form-control">
+                            </div>
+
+                            <input type="submit" value="Войти" class="btn btn-primary btn-block ">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+    <!--  Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- auth -->
+    <script src="js/auth.js"></script>
+
+</body>
+</html>

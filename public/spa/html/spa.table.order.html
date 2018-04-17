@@ -1,0 +1,175 @@
+<!--<script src="../js/jq/jquery-3.3.1.js"></script>-->
+<!--<link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>-->
+
+<!--  Bootstrap -->
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>-->
+
+<!--<link rel="stylesheet" href="../css/order.css" type="text/css"/>-->
+
+
+<div class="container">
+    <form id="spa-table-order-form" class="form-order " method="post" onsubmit="return false" data-order_id autocomplete="off">
+    <div class="row">
+        <div class="col-lg-7 column-info">
+            <div class="input-group-sm">
+                <label for="from">Откуда</label>
+                <input id="from" type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-lg-3 column-info">
+            <label for="date">Когда</label>
+            <div  class="input-group-sm">
+                <input id="date" type="date" class="form-control" >
+            </div>
+        </div>
+
+        <div class="col-lg-2 column-info">
+            <label for="time">Время</label>
+            <div class="input-group-sm">
+                <input id="time" type="time" class="form-control">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7 column-info">
+            <div class="input-group-sm">
+                <label for="to" class="">Куда</label>
+                <input id="to" type="text" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-lg-3 column-info">
+            <div class="input-group-sm">
+                <label for="phone" class="">Телефон</label>
+                <input id="phone" type="tel" class="form-control">
+            </div>
+        </div>
+
+        <div class="col-lg-2 column-info">
+            <label for="lease_term">На сколько</label>
+            <div class="input-group input-group-sm">
+                <select class="form-control" id="lease_term" aria-describedby="leas_term-icon">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="leas_term-icon">час</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7 column-info">
+            <div class="input-group-sm">
+                <label for="description" class="">Описание</label>
+                <textarea id="description" class="form-control" rows="3" style="resize: none"></textarea>
+            </div>
+        </div>
+
+        <div class="col-lg-2 column-info">
+            <label for="value" class="">Услуга будет стоить</label>
+            <div class="input-group input-group-sm">
+                <input id="value" type="number" min="0" class="form-control" aria-describedby="rub">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="rub">руб</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="btn-group" class="col-lg-3 column-info">
+            <button id="btn-save" type="submit" class="btn btn-sm btn-primary form-order-bottons form-botton">Сохранить</button>
+            <button id="btn-reset" type="reset" class=" btn btn-sm btn-secondary form-order-bottons form-botton">Сбросить</button>
+        </div>
+    </div>
+</form>
+</div>
+
+<!--<hr style="margin-top: 0; color: black; font-size: 16px ">-->
+
+
+<script>
+
+    // var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6MSwicm9sZSI6Im1hbmFnZXIiLCJpYXQiOjE1MjE4MDcwNDUsImV4cCI6MTUyMTg5MzQ0NX0.I_vFkVIjv9F6Z5j2h52sRrQyzy4K-0mk74rhH9JJIVk';
+    // $.ajaxSetup({
+    //     beforeSend: function(request) {
+    //         console.log('beforeSend')
+    //         request.setRequestHeader("Authorization", 'Bearer '+token);
+    //     }
+    // });
+
+
+    function serialize(container) {
+        var form = $(container);
+        var ob = {
+            from: form.find('#from').val(),
+            to: form.find('#to').val(),
+            description: form.find('#description').val(),
+            when: form.find('#date').val() + ' ' + $('#time').val(),
+            phone: form.find('#phone').val(),
+            lease_term: form.find('#lease_term').val(),
+            value: form.find('#value').val()
+        }
+        return ob;
+    }
+
+
+    function setData(container, data) {
+        var form = $(container);
+
+        form.find('#from').val(data.order.from);
+        form.find('#to').val(data.order.to);
+        form.find('#description').val(data.order.description);
+        var date = data.order.when.substr(0, 10);
+        form.find('#date').val(date);
+        var time = data.order.when.substr(11, 5);
+        form.find('#time').val(time);
+        form.find('#phone').val(data.order.phone);
+        form.find('#lease_term').val(data.order.lease_term);
+        form.find('#value').val(data.order.value);
+    }
+    
+    
+    function send() {
+        var data = serialize($('#spa-table-order-form'));
+        $.post('/api/order/for-manager', data).done(function (res) {
+            console.log('send success')
+            console.log(res);
+        }).fail(function (err) {
+            console.log('send fail');
+            console.log(err);
+        });
+    }
+
+
+    var d = {
+        "id": 166,
+        "order_id": 326,
+        "date_time_of_creation": null,
+        "status": " новый",
+        "performer_id": null,
+        "status_update_time": null,
+        "completed": 0,
+        "order": {
+            "id": 326,
+            "from": "frfr",
+            "from_coordinate": null,
+            "to": " fw ge rg rg rg",
+            "to_coordinate": null,
+            "when": "2018-03-24T10:00:00.000Z",
+            "phone": 981959720,
+            "description": "f",
+            "lease_term": 2,
+            "value": 100
+        }
+    }
+</script>

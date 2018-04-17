@@ -1,0 +1,84 @@
+
+h6 span {
+    font-size: 1rem !important;
+    margin-top: 5px;
+}
+
+#performer-info {
+
+    font-size: 1rem;
+    text-align: left;
+
+    border-radius: 3px;
+}
+
+#performer-info ul {
+    padding-left: 20px;
+    padding-top: 10px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#performer-info ul li{
+    padding-top: 5px;
+    font-weight: normal;
+    color: #5a6268;
+}
+
+#performer-info ul li span{
+    font-style: italic;
+    color: black;
+}
+
+.column-info{
+    text-align: left;
+    margin-top: 10px;
+}
+
+hr {
+    margin: 0;
+}
+
+.form-order {
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+
+.form-order-bottons {
+    float: right;
+    margin-top: 65px;
+    display: inline-block;
+}
+
+.form-botton {
+    float: right;
+    margin-left: 15px;
+}
+
+#performers-list div{
+    overflow: auto;
+    height: 220px;
+    border-radius: 3px;
+
+}
+#performers-list ul{
+    margin-bottom: 0;
+    padding: 0;
+}
+
+
+#performers-list li {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6 !important;
+    font-size: 14px;
+    list-style-type: none;
+    cursor: pointer;
+}
+#performers-list li:hover{
+    background-color:#dee2e6 ;
+}
+.select-performer{
+    margin-top: 29px;
+}

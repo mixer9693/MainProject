@@ -1,0 +1,59 @@
+.form-order {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: 1rem;
+    /*border: 1px solid yellow;*/
+}
+
+.form-order label{
+    margin-bottom: 0;
+    font-size: 0.8rem !important;
+}
+
+.form-order-bottons {
+    float: right;
+    margin-top: 65px;
+}
+
+
+
+
+/* common */
+.column-info{
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.form-botton {
+    float: right;
+    margin-left: 15px;
+}
+
+/*table*/
+
+#movemetOrderTable td:nth-child(4){
+    width: 100px!important;
+}
+
+#movemetOrderTable td:nth-child(5) {
+    width: 150px!important;
+}
+
+#movemetOrderTable td:nth-child(1){
+    font-weight: bold;
+}
+
+
+.select {
+    background-color: #c9ffc8 !important;
+}
+
+#movemetOrderTable tr{
+    cursor: pointer;
+}
+
+/* end common */
+
+
+

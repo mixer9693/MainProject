@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--  Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- shell -->
+    <link rel="stylesheet" href="./css/shell.css" type="text/css"/>
+    <!-- table.order -->
+    <link rel="stylesheet" href="./css/order.css" type="text/css"/>
+
+    <!--  JQuery -->
+    <script src="../javascripts/jq/jquery-3.3.1.js" ></script>
+
+    <script>
+        console.log('ORDER.HTML')
+        $(document).ready(function () {
+            auth.init();
+            message.init($('#mes'))
+
+            $('#date').attr('min', order.getDate())
+
+            $('#spa-table-order-form').submit(function () {
+                var data = order.serialize($(this))
+
+                order.createOrder(data).then(function (res) {
+
+                    var mes = 'Заказ №'+res.order_id+' создан. <b>#'+res.id+'</b>';
+                    message.showMessage(null, mes, message.TYPE.SUCCESS)
+
+                }).catch(function (err) {
+
+                    var head = 'Не удалось создать заказ'
+                    var mes = 'Ошибка: '+err.status;
+                    message.showMessage(head, mes, message.TYPE.DANGER)
+
+                    throw Error(err);
+                })
+            })
+
+
+
+
+        })
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <ul class="menu" id="myTab"> <!-- nav nav-tabs-->
+            <li><a href="table.html" >Таблица</a></li>
+            <li><a href="order.html" class="active">Создать заказ</a></li>
+            <li><a class="inaccessible">Редактирование</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <form id="spa-table-order-form" class="form-order " method="post" onsubmit="return false" data-order_id autocomplete="off">
+            <div class="row">
+                <div class="col-lg-7 column-info">
+                    <div class="input-group-sm">
+                        <label for="from">Откуда *</label>
+                        <input id="from" type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-lg-3 column-info">
+                    <label for="date">Когдa</label>
+                    <div  class="input-group-sm">
+                        <input id="date" type="date" class="form-control" >
+                    </div>
+                </div>
+
+                <div class="col-lg-2 column-info">
+                    <label for="time">Время</label>
+                    <div class="input-group-sm">
+                        <input id="time" type="time" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-7 column-info">
+                    <div class="input-group-sm">
+                        <label for="to" class="">Куда *</label>
+                        <input id="to" type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-lg-3 column-info">
+                    <div class="input-group-sm">
+                        <label for="phone" class="">Телефон *</label>
+                        <input id="phone" type="tel" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-lg-2 column-info">
+                    <label for="lease_term">На сколько *</label>
+                    <div class="input-group input-group-sm">
+                        <select class="form-control" id="lease_term" aria-describedby="leas_term-icon">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="leas_term-icon">час</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-7 column-info">
+                    <div class="input-group-sm">
+                        <label for="description" class="">Описание</label>
+                        <textarea id="description" class="form-control" rows="3" style="resize: none"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 column-info">
+                    <label for="value" class="">Услуга будет стоить *</label>
+                    <div class="input-group input-group-sm">
+                        <input id="value" type="number" min="0" class="form-control" aria-describedby="rub">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="rub">руб</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="btn-group" class="col-lg-3 column-info">
+                    <button id="btn-save" type="submit" class="btn btn-sm btn-primary form-order-bottons form-botton">Сохранить</button>
+                    <button id="btn-reset" type="reset" class=" btn btn-sm btn-secondary form-order-bottons form-botton">Сбросить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="mes"></div>
+
+    <!--  Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- auth -->
+    <script src="js/auth.js"></script>
+    <!-- table order -->
+    <script src="js/order.js"></script>
+    <!-- message -->
+    <script src="js/message.js"></script>
+
+</body>
+</html>

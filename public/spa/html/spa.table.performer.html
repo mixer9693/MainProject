@@ -1,0 +1,86 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-8 column-info">
+                    <h6>
+                        <label class="control-label" for="mov-id">Исполнитель: #</label>
+                        <span id="performer-id" class="badge "><!--не назначен--></span>  <!-- badge-warning -->
+                    </h6>
+                </div>
+
+                <div class="col-lg-4 column-info">
+                    <div id="buttons" class="invisible">
+                        <button id="remove-performer" type="button" class=" btn btn-sm btn-secondary form-botton" >Снять</button>
+                        <button id="set-performer" type="button" class=" btn btn-sm btn-primary form-botton" >Назначить</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="performer-info" class="invisible border" >
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <ul class="list-unstyled">
+                                    <li><strong>Водитель</strong>
+                                        <ul>
+                                            <li>Имя:
+                                                <span id="performer-name">Валентин</span>
+                                            </li>
+                                            <li>Фамилия:
+                                                <span id="performer-surname">Титов</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Автомобиль</strong>
+                                        <ul>
+                                            <li>Тип:
+                                                <span id="car-type">В4</span>
+                                            </li>
+                                            <li>Грузоподъемность:
+                                                <span id="car-carrying_capacity">1,5</span>
+                                            </li>
+                                            <li>Марка:
+                                                <span id="car-mark">Газель</span>
+                                            </li>
+                                            <li>Номер:
+                                                <span id="car-state_number">А777МР</span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h6 class="column-info">
+                                            <span id="at-work" class="badge ">на работе</span> <!-- badge-info -->
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h6>
+                                            <span id="free" class="badge ">свободен</span> <!-- badge-success -->
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-10 column-info select-performer">
+                    <div id="performers-list" class="invisible">
+                        <label for="performers-list">Список свободных водителей</label>
+                        <div class="border"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
