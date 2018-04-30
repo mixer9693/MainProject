@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aba31c49-44c6-451f-8777-68dcc55be236" name="Default" comment="1">
+    <list default="true" id="aba31c49-44c6-451f-8777-68dcc55be236" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -274,29 +274,6 @@
               <item name="MainProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="MainProject" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="MainProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MainProject" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MainProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MainProject" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="site" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MainProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MainProject" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="site" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MainProject" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MainProject" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -458,7 +435,7 @@
       <workItem from="1524929250103" duration="6645000" />
       <workItem from="1525075787203" duration="3853000" />
       <workItem from="1525080300767" duration="2097000" />
-      <workItem from="1525121529933" duration="362000" />
+      <workItem from="1525121529933" duration="433000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1523887053523</created>
@@ -488,11 +465,18 @@
       <option name="project" value="LOCAL" />
       <updated>1525121756977</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="1">
+      <created>1525121895477</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1525121895477</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="669474000" />
+    <option name="totallyTimeSpent" value="669545000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="69" y="-4" width="1303" height="780" extended-state="6" />
