@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="aba31c49-44c6-451f-8777-68dcc55be236" name="Default" comment="1">
+    <list default="true" id="aba31c49-44c6-451f-8777-68dcc55be236" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/controller.js" afterPath="$PROJECT_DIR$/controller.js" />
-      <change beforePath="$PROJECT_DIR$/jwt.js" afterPath="$PROJECT_DIR$/jwt.js" />
-      <change beforePath="$PROJECT_DIR$/model.js" afterPath="$PROJECT_DIR$/model.js" />
-      <change beforePath="$PROJECT_DIR$/public/site/edit.html" afterPath="$PROJECT_DIR$/public/site/edit.html" />
-      <change beforePath="$PROJECT_DIR$/public/site/js/auth.js" afterPath="$PROJECT_DIR$/public/site/js/auth.js" />
-      <change beforePath="$PROJECT_DIR$/public/site/js/performer.js" afterPath="$PROJECT_DIR$/public/site/js/performer.js" />
-      <change beforePath="$PROJECT_DIR$/public/site/js/socket.js" afterPath="$PROJECT_DIR$/public/site/js/socket.js" />
-      <change beforePath="$PROJECT_DIR$/public/site/js/table.js" afterPath="$PROJECT_DIR$/public/site/js/table.js" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
-      <change beforePath="$PROJECT_DIR$/socket.js" afterPath="$PROJECT_DIR$/socket.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,14 +16,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="socket.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="socket.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/socket.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1080">
-              <caret line="60" column="29" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding>
-                <marker date="1525114432812" expanded="true" signature="1002:1011" ph="{...}" />
-              </folding>
+            <state relative-caret-position="126">
+              <caret line="60" column="26" lean-forward="false" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,7 +66,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="edit.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/site/edit.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2250">
@@ -470,7 +458,7 @@
       <workItem from="1524929250103" duration="6645000" />
       <workItem from="1525075787203" duration="3853000" />
       <workItem from="1525080300767" duration="2097000" />
-      <workItem from="1525121529933" duration="57000" />
+      <workItem from="1525121529933" duration="225000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1523887053523</created>
@@ -486,11 +474,18 @@
       <option name="project" value="LOCAL" />
       <updated>1523887302396</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="1">
+      <created>1525121597041</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1525121597041</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="669169000" />
+    <option name="totallyTimeSpent" value="669337000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="69" y="-4" width="1303" height="780" extended-state="6" />
@@ -984,16 +979,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/socket.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="60" column="29" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <marker date="1525114432812" expanded="true" signature="1002:1011" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/site/edit.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2250">
@@ -1001,6 +986,14 @@
           <folding>
             <element signature="e#1473#1940#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/socket.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="60" column="26" lean-forward="false" selection-start-line="60" selection-start-column="26" selection-end-line="60" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
