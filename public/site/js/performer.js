@@ -193,10 +193,12 @@ performer = (function () {
     }
 
     setPerformer = function (movId, performId) {
+
+
         return new Promise(function (resolve, reject) {
             if (!movId) {reject(); return}
 
-            var data = {id: movId, performer_id: performId, status: ' новый'}
+            var data = {id: movId, performer_id: performId, status: 'новый'}
             console.log(data);
 
             $.post('/api/movement-orders/'+movId, data).done(function (data) {

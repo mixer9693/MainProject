@@ -20,6 +20,7 @@
         console.log('EDIT.HTML')
         $(document).ready(function () {
             auth.init()
+            socket.init();
 
             var params = parseURL();
             var mov = null
@@ -142,14 +143,41 @@
         function initPerform() {
 
             performer.addSetPerformerClickListener(function (Performer) {
-                var movId = $('#spa-table-edit').attr('data-mov_id');
-                performer.setPerformer(movId, Performer.id).then(function (res) {
-                    performer.show(res.performer_id)
+                console.log('set performer: ' + Performer.id);
 
-                    var mes = 'Водитель <b>#'+res.performer_id+'</b> назначен на заказ <b>№'
-                        +res.order_id+'</b>'
-                    message.showMessage(null, mes, message.TYPE.SUCCESS)
+                var movId = $('#spa-table-edit').attr('data-mov_id')
+                socket.emitOfferOrder(movId, Performer.id)
+                // var button = $("#set-performer");
+                // button.attr("display", "none");
+                // performer.show(Performer.id)
+
+                socket.addOfferOrderHandler(function (data) {
+                    console.log('OfferOrderHandler');
+                    console.log(data);
+
+                    if (!data.error) {
+                        var mes = 'Водитель <b>#' + data.data.performer_id + '</b> назначен на заказ <b>№'
+                            + data.data.movId + '</b>'
+                        message.showMessage(null, mes, message.TYPE.SUCCESS)
+
+                        performer.show(data.data.performer_id)
+
+                    }else {
+                        // button.attr("display", "block");
+
+                        var head= 'Не удалось назначить водителя на заказ';
+                        var mes =  ''
+                        message.showMessage(head, mes, message.TYPE.DANGER)
+                    }
                 })
+
+                // performer.setPerformer(movId, Performer.id).then(function (res) {
+                //     performer.show(res.performer_id)
+                //
+                //     var mes = 'Водитель <b>#'+res.performer_id+'</b> назначен на заказ <b>№'
+                //         +res.order_id+'</b>'
+                //     message.showMessage(null, mes, message.TYPE.SUCCESS)
+                // })
             })
 
             performer.addRemovePerformerClickListener(function (Performer) {
@@ -415,6 +443,11 @@
     <script src="js/order.js"></script>
     <!-- message -->
     <script src="js/message.js"></script>
+
+    <!-- socket -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/socket.js"></script>
+
 
 </body>
 </html>

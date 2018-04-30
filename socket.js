@@ -1,6 +1,7 @@
 var io;
 var socketioJwt = require('socketio-jwt');
 var jwt = require('./jwt');
+var model = require("./model");
 
 const accessSecret = 'accessSecret';
 
@@ -17,7 +18,7 @@ var managersSocket = {};
 
 function init(server) {
     io = require('socket.io')(server);
-    //emitInterval();
+    emitInterval();
     io.use(socketioJwt.authorize({
         secret: accessSecret,
         handshake: true,
@@ -25,14 +26,14 @@ function init(server) {
 
 
     io.on('connection', function (socket) {
-        var time = socket.decoded_token.exp - Math.floor(Date.now()/1000);
+//        var time = socket.decoded_token.exp - Math.floor(Date.now()/1000);
 
         //console.log('time ' + time);
-        setTimeout(function () {
+//         setTimeout(function () {
             // console.log('setTimeout')
             // var error = {message: "jwt expired", code: "invalid_token", type: "UnauthorizedError"}
-            socket. disconnect(false);
-        }, time*1000);
+//            socket. disconnect(false);
+//        }, time*1000);
 
         console.log('connection');
         switch (socket.decoded_token.role){
@@ -53,33 +54,34 @@ function init(server) {
                 break;
         }
 
-
-
-        // socket.on('offer_order', function (data) {
-        //     if (!data.performerId || !data.order || !data.managerId)
-        //         return;
-        //     sendToDriverById(data.performerId, 'offer_order', data);
-        // });
-
-        socket.on('offer_order', function (data) {
-            console.log('offer_order');
+        //назначить заказ вдителю. Постпает от менеджера. Вносятся изменения в базу,
+        //затем отсылается ответ менеджеру об успешном назначении водителя на заказ,
+        //и отправляется событие водителю о назначении заказа.
+        socket.on('offer order', function (data) {
+            console.log('offer order');
             console.log(data);
 
-            if (!data.performerId || !data.order || !data.managerId){
+            if (!data.performerId || !data.movId || !data.managerId){
                 var message = 'Отправка события offer_order завершилась с ошибкой'
-                socket.emit('offer_order', {error: message, data: data});
+                sendToManagerById(data.managerId, "offer order", {data: data, error: true});
                 return;
             }
-            sendToDriverById(data.performerId, 'offer_order', data);
-        });
 
-        socket.on('response_to_offer_order', function (data) {
-            if (!data.performerId || !data.response || !data.managerId){
-                var message = 'Отправка события response_to_offer_order завершилась с ошибкой'
-                socket.emit('error', {message: message, data: data});
-                return;
-            }
-            sendToManagerById(data.managerId, 'offer_order', data);
+            model.setMovementOrder({id: data.movId}, {performer_id: data.performerId},
+                function (err, res) {
+                    console.log('offer order setMovementOrder');
+                    if (err) {
+                        console.log('offer order setMovementOrder ERROR');
+                        sendToManagerById(data.managerId, "offer order", {data: data, error: true});
+                        return;
+                    }
+                    console.log('offer order setMovementOrder OK');
+                    sendToManagerById(data.managerId, "offer order", {data: data, error: null});
+
+                    sendToDriverById(data.performerId, "offer order", data);
+                    console.log('offer order setMovementOrder end');
+            })
+
         });
 
         socket.on('disconnect', function (data) {
@@ -123,13 +125,14 @@ function sendToManagerById(id, event, data) {
 var c = 0;
 function emitInterval() {
     setInterval(function () {
-        emitForDrivers('news', 'update order '+c);
-        emitForManagers('update order', 'update order '+c);
-        emitForManagers('update movement-order', 'update movement-order '+c);
-        emitForManagers('update performer', 'update performer '+c);
-        emitForManagers('new order', 'new order '+c);
-        emitForManagers('driver at-wokr', 'driver at-wokr '+c);
-        emitForManagers('news', 'news '+c);
+        emitForDrivers('news b', 'update order '+c);
+        sendToDriverById(5, "news b", "BY ID")
+        // emitForManagers('update order', 'update order '+c);
+        // emitForManagers('update movement-order', 'update movement-order '+c);
+        // emitForManagers('update performer', 'update performer '+c);
+        // emitForManagers('new order', 'new order '+c);
+        // emitForManagers('driver at-wokr', 'driver at-wokr '+c);
+        // emitForManagers('news', 'news '+c);
         c++
     }, 3000);
 }

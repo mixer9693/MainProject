@@ -9,7 +9,7 @@ function createTokens(employeeId, role, performerId) {
         payload['performer_id'] = performerId;
     }
 
-    var accessToken = jwt.sign(payload, accessSecret, {expiresIn: '1d' });
+    var accessToken = jwt.sign(payload, accessSecret, {expiresIn: '15m' });
     var refreshToken = jwt.sign(payload, refreshSecret, {expiresIn: '30d'});
 
     var data = {

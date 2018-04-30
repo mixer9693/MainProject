@@ -4,7 +4,9 @@ var auth = (function () {
 
     var timeOutId
 
-    var init, getToken, checkAuthentication, serialize, authenticate, setSession, setWorkingState,
+    var init, getToken, getEmployeeId, checkAuthentication, serialize, authenticate,
+        setSession, setWorkingState,
+
         showError, validate
 
     var getSession, setTimeOutRefresh,
@@ -69,17 +71,20 @@ var auth = (function () {
         sessionStorage.setItem('accessToken', JWT.accessToken)
         sessionStorage.setItem('refreshToken', JWT.refreshToken)
         sessionStorage.setItem('expiresIn', JWT.expiresIn)
+        sessionStorage.setItem('employeeId', JWT.employeeId)
     }
 
     getSession = function () {
         var accessToken = sessionStorage.getItem('accessToken')
         var refreshToken = sessionStorage.getItem('refreshToken')
         var expiresIn = sessionStorage.getItem('expiresIn')
+        var employeeId = sessionStorage.getItem('employeeId')
         if (accessToken && refreshToken && expiresIn)
             return{
                 accessToken: accessToken,
                 refreshToken: refreshToken,
-                expiresIn: expiresIn
+                expiresIn: expiresIn,
+                employeeId: employeeId
             }
     }
 
@@ -97,6 +102,7 @@ var auth = (function () {
         console.log('   *token bad')
         return false
     }
+
 
     hasExpired = function (expiresIn) {
         var timeNow = Math.floor(Date.now()/1000);
@@ -154,6 +160,10 @@ var auth = (function () {
         return true
     }
 
+    getEmployeeId = function () {
+        return sessionStorage.getItem('employeeId')
+    }
+
 
     return{
         authenticate: authenticate,
@@ -164,7 +174,8 @@ var auth = (function () {
         init: init,
         setWorkingState: setWorkingState,
         showError: showError,
-        validate: validate
+        validate: validate,
+        getEmployeeId: getEmployeeId
     }
 
 })()

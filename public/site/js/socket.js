@@ -12,14 +12,18 @@ socket = (function () {
             'update performer':      null,
             'new order':             null,
             'driver at-wokr':        null,
-            'offer_order':           null
+            'take order':            null,
+            'offer order':             null
         },
 
         socket = null,
         countConnect = 0,
 
         init, addUpdateOrderHandler, addUpdateMovementOrderHandler, addUpdatePerformerHandler,
-        addNewOrderHandler, addDriverAtWorkHandler, emitOfferOrderEvent, addOfferOrderHandler,
+        addNewOrderHandler, addDriverAtWorkHandler,
+
+        addTakeOrderHandler, addOfferOrderHandler,
+        emitOfferOrder,
 
         connect, onDisconnect, onError, subscribeToEvents
 
@@ -114,14 +118,29 @@ socket = (function () {
         }
     }
 
-    emitOfferOrderEvent = function (data) {
-        socket.emit('offer_order', data);
+
+    emitOfferOrder = function (movId, performerId) {
+        console.log("emitSetOrder: " + performerId);
+
+        var data = {
+            movId: movId,
+            performerId: performerId,
+            managerId: auth.getEmployeeId()
+        }
+        socket.emit("offer order", data);
+    }
+
+    addTakeOrderHandler = function (handler) {
+        if (typeof handler == 'function') {
+            events['take order'] = handler;
+            socket.on('take order', events['take order']);
+        }
     }
 
     addOfferOrderHandler = function (handler) {
         if (typeof handler == 'function') {
-            events['offer_order'] = handler;
-            socket.on('offer_order', events['offer_order']);
+            events['offer order'] = handler;
+            socket.on('offer order', events['offer order']);
         }
     }
 
@@ -132,8 +151,11 @@ socket = (function () {
         addUpdatePerformerHandler:     addUpdatePerformerHandler,
         addNewOrderHandler:            addNewOrderHandler,
         addDriverAtWorkHandler:        addDriverAtWorkHandler,
-        emitOfferOrderEvent:           emitOfferOrderEvent,
+
         addOfferOrderHandler:          addOfferOrderHandler,
+        addTakeOrderHandler:           addTakeOrderHandler,
+        emitOfferOrder:                emitOfferOrder,
+
 
         events: events
     }

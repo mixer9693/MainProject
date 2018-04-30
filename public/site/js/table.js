@@ -48,7 +48,7 @@ table = (function () {
                     ],
 
                     columns: [
-                        { data: 'order_id'},
+                        { data: 'id'},
                         // { data: 'order_id' },
                         { data: 'order.from', orderable: false},
                         { data: 'order.to', orderable: false},

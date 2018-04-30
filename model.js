@@ -54,6 +54,7 @@ function getEmployees(where, callback) {
     });
 }
 
+
 function setMovementOrder(where, options, callback) {
     console.log(options)
     db.transaction(function(t) {
@@ -213,7 +214,9 @@ function authentication(login, password, callback) {
 function refreshToken(token, callback) {
     try {
         var decoded = jwt.verifyRefreshToken(token);
-    }catch (err){callback(err); return;}
+    }catch (err){
+	console.log("!decoded");
+	callback(err); return;}
 
     checkToken(decoded.employee_id, token, function (err, data) {
         if (err){

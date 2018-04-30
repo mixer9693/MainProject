@@ -46,7 +46,7 @@ router.get('/api/performers(/:id)?', passport.authenticate('jwt'),
     }
 )
 
-router.get('/api/performers/:per_id/movement-order(/:mov_id)?', passport.authenticate('jwt'),
+router.get('/api/performers/:per_id/movement-orders(/:mov_id)?', passport.authenticate('jwt'),
     autorize([ROLE.MANAGER, ROLE.DRIVER]),
     function (req, res) {
         switch (req.user.role) {

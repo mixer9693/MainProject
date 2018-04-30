@@ -133,6 +133,7 @@ function updateMePerformer(req, res) {
         options['free'] = req.body.free;
     if (req.body.position)
         options['position'] = req.body.position;
+    console.log(options);
     model.setPerformer({id: req.user.performer_id, at_work: 1}, options, send(res));
 }
 
